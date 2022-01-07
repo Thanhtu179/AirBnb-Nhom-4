@@ -1,0 +1,47 @@
+.ant-dropdown-menu {
+  margin-top: 10px !important;
+}
+
+.admin__controler {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin__controler__user-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.25rem;
+}
+
+.admin__controler__dropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-color: #dddddd;
+  border-radius: 21px;
+  border-style: solid;
+  border-width: 1px;
+  line-height: 20px;
+  padding: 5px 5px 5px 12px;
+  height: 100%;
+}
+
+.admin__controler__dropdown:hover {
+  box-shadow: 0px 2px 4px rgb(0 0 0 / 18%) !important;
+}
+
+.admin__controler__dropdown__icon {
+  margin-right: 1rem;
+}
+
+.admin__controler__dropdown__icon i {
+  line-height: 20px;
+}
+
+.admin__controler__dropdown__image img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}

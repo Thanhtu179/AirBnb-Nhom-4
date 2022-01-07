@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
+
+:root {
+  --box-shadow-1: 0 2px 4px rgba(0, 0, 0, 0.18);
+  --box-shadow: 1px solid rgba(0, 0, 0, 0.08);
+
+  --color-primary: #ff385c;
+
+  --color-dark-1: #000000;
+  --color-dark-2: #222222;
+  --color-dark-3: #717171;
+
+  --color-white-1: #b0b0b0;
+  --color-white-2: #dddddd;
+  --color-white-3: #ebebeb;
+  --color-white-4: #f7f7f7;
+  --color-white-0: #ffffff;
+
+  --color-red-1: #c13515;
+  --color-red-2: #b32505;
+  --color-red-3: #92174d;
+  --color-yellow: #e07912;
+
+  --color-green: #008a05;
+  --color-blue: #428bff;
+  --color-purple: #460479;
+
+  --color-gradient-1: linear-gradient(
+    to right,
+    #e61e4d 0%,
+    #e31c5f 50%,
+    #d70466 100%
+  );
+  --color-gradient-3: linear-gradient(
+    to right,
+    #bd1e59 0%,
+    #92174d 50%,
+    #861453 100%
+  );
+  --color-gradient-2: linear-gradient(
+    to right,
+    #59086e 0%,
+    #460479 50%,
+    #440589 100%
+  );
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #484848;
+  background-color: var(--color-white-0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+a:hover {
+  color: var(--color-primary);
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+input {
+  outline: 0;
+}

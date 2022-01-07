@@ -1,0 +1,1 @@
+export const SET_ARR_LOCATIONS = "SET_ARR_LOCATIONS";

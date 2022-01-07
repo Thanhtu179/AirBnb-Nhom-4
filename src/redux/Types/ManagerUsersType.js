@@ -1,0 +1,5 @@
+export const LOGIN = 'LOGIN';
+export const SET_USER_INFO = 'SET_USER_INFO';
+export const SET_USER_INFO_BY_ID = 'SET_USER_INFO_BY_ID';
+export const SET_ARR_USERS = 'SET_ARR_USERS';
+export const SET_ARR_USERS_BY_PANIGATION = "SET_ARR_USERS_BY_PANIGATION";
