@@ -5,13 +5,13 @@ import { AdminTemplate } from "./templates/AdminTemplate/AdminTemplate";
 import ManagerLocation from './pages/ManagerLocation/ManagerLocation';
 import ManagerRooms from "./pages/ManagerRooms/ManagerRooms";
 import ManagerUsers from "./pages/ManagerUsers/ManagerUsers";
-import Room from "./pages/Room/Room";
 import ListRoom from "./pages/RoomList/ListRoom";
 import UserInfo from "./pages/UserInfo/UserInfo";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
-
+import LocationInfo from './pages/LocationInfo/LocationInfo';
+import RoomInfo from './pages/RoomInfo/RoomInfo';
 
 
 export const history = createBrowserHistory();
@@ -27,9 +27,10 @@ function App() {
         <Route exact path="/register" component={Register} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/" component={Home} />
-        <Route exact path="/rooms/:id" component={Room} />
+        <Route exact path="/rooms/:id" component={RoomInfo} />
+        <Route exact path="/users/:id" component={UserInfo} />
+        <Route exact path="/locations/:id" component={LocationInfo} />
         <Route exact path="/list-room" component={ListRoom} />
-        <Route exact path="/user/:id" component={UserInfo} />
       </Switch>
     </Router>
   );

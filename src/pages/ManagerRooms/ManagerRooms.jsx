@@ -1,24 +1,20 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./ManagerRooms.css";
 import { Table, Button, Input, Popconfirm, Image } from "antd";
 import {
   EditOutlined,
   SearchOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { history } from "../../App";
 import { NavLink } from "react-router-dom";
+
+import "./ManagerRooms.css";
 import {
   deleteRoomByIdAction,
   getAllRoom,
   getRoomByPagination,
 } from "../../redux/Actions/ManagerRoomsAction";
-import {
-  closeDrawer,
-  openDrawer,
-} from "../../redux/Actions/AdminControlAction";
-import DrawerModel from "../../components/Drawer/DrawerModel";
+import { openDrawer } from "../../redux/Actions/AdminControlAction";
 import AddRoom from "./AddRoom/AddRoom";
 import EditRoom from "./EditRoom/EditRoom";
 
@@ -63,9 +59,13 @@ const ManagerRooms = () => {
   };
 
   useEffect(async () => {
+    setLoading(true);
     dispatch(getAllRoom());
     dispatch(getRoomByPagination(pagination));
     setPagination({ ...pagination, total: arrRoom.length });
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   }, []);
 
   if (arrSearch) {

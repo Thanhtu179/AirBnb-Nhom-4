@@ -67,6 +67,7 @@ const AddRoom = (props) => {
     validationSchema: Yup.object().shape({
       name: Yup.string().required("Tên không được bõ trống"),
       description: Yup.string().required("Mô tả không được bỏ trống"),
+      locationId: Yup.string().required("Xin vui lòng chọ địa điểm"),
     }),
     onSubmit: (values) => {
       // console.log("values", values);
@@ -145,8 +146,15 @@ const AddRoom = (props) => {
             </Form.Item>
           </div>
           <div className="col-12">
+            {formik.errors.locationId && formik.touched.locationId ? (
+              <div className="text-danger">{formik.errors.locationId}</div>
+            ) : null}
             <Form.Item label="Vị trí du lịch">
-              <Select name="locationId" onChange={handleChangeSelector}>
+              <Select
+                name="locationId"
+                onChange={handleChangeSelector("locationId")}
+                placeholder="Search to Select"
+              >
                 {locationOptions?.map((item, index) => (
                   <Option key={index} value={item.id}>
                     {item.name}

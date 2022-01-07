@@ -13,10 +13,6 @@ export class ManagerLocationService extends baseService {
         return this.delete(`api/locations/${locationId}`);
     }
 
-    getLocationList = (data) => {
-        return this.get('api/locations', data);
-    }
-
     getLocationInfo = (locationId) => {
         return this.get(`api/locations/${locationId}`);
     }
@@ -37,7 +33,14 @@ export class ManagerLocationService extends baseService {
         return this.get(`api/locations`);
     }
 
+    getLocationListByPagination = (pagination) => {
+        let { current, pageSize } = pagination;
+        return this.get(`api/locations?skip=${current}&limit=${pageSize}`);
+    }
 
+    getLocationListByKey = (key) => {
+        return this.get(`api/locations?location=${key}`);
+    }
 
 }
 
