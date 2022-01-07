@@ -16,13 +16,11 @@ export default (state = initialState, action) => {
 
         case SET_ARR_ROOM: {
             state.arrRoom = action.arrRoom;
-            state.pagination.total = action.arrRoom.length;
             return { ...state }
         }
 
         case SET_ARR_ROOM_BY_PANIGATION: {
             state.arrRoomByPanigation = action.arrRoomByPanigation;
-            state.pagination = action.pagination;
             return { ...state }
         }
 

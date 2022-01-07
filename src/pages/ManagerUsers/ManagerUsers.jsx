@@ -199,9 +199,13 @@ const ManagerUsers = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     dispatch(getAllUser());
     dispatch(getUserByPagination(pagination));
     setPagination({ ...pagination, total: arrUsers.length });
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   }, []);
 
   if (arrUserSearch) {
