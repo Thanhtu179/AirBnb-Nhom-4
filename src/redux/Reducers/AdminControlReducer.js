@@ -1,6 +1,6 @@
-
-
 import { OPEN_DRAWER, CLOSE_DRAWER } from "../Types/AdminControlType"
+import AddLocation from "../../pages/ManagerLocation/AddLocation/AddLocation"
+
 
 const initialState = {
     modalDrawer: {
@@ -22,6 +22,8 @@ export default (state = initialState, action) => {
 
         case CLOSE_DRAWER: {
             state.modalDrawer.drawerVisible = false;
+            state.modalDrawer.drawerTitle = "Title Default";
+            state.modalDrawer.drawerContent = <p>Default</p>;
             return { ...state }
         }
 

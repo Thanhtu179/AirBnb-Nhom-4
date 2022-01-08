@@ -41,7 +41,7 @@ export const addLocationAction = (locationInfo) => {
 export const updateLocationByIdAction = (id, updateInfo) => {
     return async (dispatch) => {
         try {
-            const result = await managerLocationService.updateLocationByIdAction(id, updateInfo)
+            const result = await managerLocationService.updateLocationInfo(id, updateInfo);
             if (result.status === 200) {
                 alert('Cập nhật phòng thành công!');
                 dispatch(closeDrawer());
@@ -53,6 +53,23 @@ export const updateLocationByIdAction = (id, updateInfo) => {
         }
     }
 }
+
+export const updateLocationAvatar = (id, formData) => {
+    return async (dispatch) => {
+        try {
+            const result = await managerLocationService.updateLocationInfoAvatart(id, formData);
+            if (result.status === 200) {
+                alert('Cập nhật phòng thành công!');
+                dispatch(closeDrawer());
+                window.location.reload();
+            }
+        } catch (error) {
+            alert("Cập nhật không thành công có lỗi")
+            console.log(error);
+        }
+    }
+}
+
 
 export const getLocationByIdAction = (id) => {
     return async (dispatch) => {

@@ -150,7 +150,7 @@ const ManagerLocation = () => {
               onClick={() =>
                 dispatch(
                   openDrawer(
-                    "Chỉnh sữa thông tin phòng",
+                    "Chỉnh sữa thông tin vị trí",
                     <EditLocation id={Location._id} />
                   )
                 )

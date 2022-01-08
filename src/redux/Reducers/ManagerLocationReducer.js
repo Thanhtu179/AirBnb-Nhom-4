@@ -16,7 +16,6 @@ export default (state = initialState, action) => {
         }
 
         case SET_ARR_LOCATIONS_BY_PAGINATION: {
-            console.log("vao r")
             state.arrLocationsByPagination = action.arrLocationsByPagination;
             return { ...state };
         }
