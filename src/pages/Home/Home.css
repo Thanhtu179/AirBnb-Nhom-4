@@ -1,0 +1,23 @@
+#carousel {
+  padding: 10px 50px;
+  background-color: black !important;
+}
+
+#carousel .carousel_contain {
+  background-image: url("./../../assets/img/landscape.jpg");
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+}
+
+#home_search {
+  position: absolute;
+  top: 80px;
+  z-index: 10;
+  background-color: black;
+  padding: 0 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}

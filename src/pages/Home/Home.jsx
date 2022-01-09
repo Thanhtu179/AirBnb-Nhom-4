@@ -1,13 +1,18 @@
 import React from "react";
 import Footer from "../../components/Footer/Footer";
-import { HeaderFix } from "../../components/Header/Header";
+import Header, { HeaderFix } from "../../components/Header/Header";
 import "./Home.css";
+import HomeBody from "./HomeBody";
+import HomeCarousel from "./HomeCarousel";
+import HomeSearch from "./HomeSearch";
 
 const Home = () => {
   return (
     <div>
-      <HeaderFix />
-      Home
+      <Header menu={true} />
+      <HomeSearch />
+      <HomeCarousel />
+      <HomeBody />
       <Footer />
     </div>
   );
