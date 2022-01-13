@@ -17,12 +17,14 @@ import {
 import { openDrawer } from "../../redux/Actions/AdminControlAction";
 import AddRoom from "./AddRoom/AddRoom";
 import EditRoom from "./EditRoom/EditRoom";
+import { setLoading } from "../../redux/Actions/ManagerRoomsAction";
+import EditRoomImage from "./EditRoom/EditRoomImage";
 
 const { Search } = Input;
 
 const ManagerRooms = () => {
   const dispatch = useDispatch();
-  const { arrRoom, arrRoomByPanigation } = useSelector(
+  const { arrRoom, loading } = useSelector(
     (state) => state.ManagerRoomsReducer
   );
   const [arrSearch, setArrSearch] = useState(null);
@@ -31,18 +33,13 @@ const ManagerRooms = () => {
     pageSize: 6,
     total: 1,
   });
-  const [loading, setLoading] = useState(false);
   let data = [];
 
   const handleTableChange = ({ pagination }) => {
-    setLoading(true);
-    if (arrSearch) {
-      setPagination({ pagination });
-    } else {
-      dispatch(getRoomByPagination(pagination));
-    }
+    dispatch(setLoading(true));
+    setPagination({ pagination });
     setTimeout(() => {
-      setLoading(false);
+      dispatch(setLoading(false));
     }, 500);
   };
 
@@ -58,20 +55,18 @@ const ManagerRooms = () => {
     }
   };
 
-  useEffect(async () => {
-    setLoading(true);
+  useEffect(() => {
     dispatch(getAllRoom());
-    dispatch(getRoomByPagination(pagination));
-    setPagination({ ...pagination, total: arrRoom.length });
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
   }, []);
+
+  useEffect(() => {
+    setPagination({ ...pagination, total: arrRoom.length });
+  }, [arrRoom]);
 
   if (arrSearch) {
     data = arrSearch;
   } else {
-    data = arrRoomByPanigation;
+    data = arrRoom;
   }
 
   const columns = [
@@ -109,7 +104,20 @@ const ManagerRooms = () => {
               />
             )}
             <div className="ml-5">
-              <Button shape="round" type="primary" ghost className="mx-1">
+              <Button
+                shape="round"
+                type="primary"
+                ghost
+                className="mx-1"
+                onClick={() => {
+                  dispatch(
+                    openDrawer(
+                      "Chỉnh sữa hình ảnh phòng",
+                      <EditRoomImage id={room._id} />
+                    )
+                  );
+                }}
+              >
                 Chỉnh sữa ảnh
               </Button>
             </div>
@@ -206,8 +214,8 @@ const ManagerRooms = () => {
         rowKey={"_id"}
         dataSource={data}
         pagination={pagination}
-        loading={loading}
         onChange={handleTableChange}
+        loading={loading}
       />
     </div>
   );

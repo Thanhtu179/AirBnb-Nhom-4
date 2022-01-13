@@ -12,6 +12,7 @@ import {
   deleteUserByIdAction,
   getAllUser,
   getUserByPagination,
+  setLoading,
 } from "../../redux/Actions/ManagerUsersAction";
 import { NavLink } from "react-router-dom";
 import AddUser from "./AddUser/AddUser";
@@ -26,7 +27,7 @@ const { Search } = Input;
 
 const ManagerUsers = () => {
   const dispatch = useDispatch();
-  const { arrUsers, arrUserByPagination } = useSelector(
+  const { arrUsers, loading } = useSelector(
     (state) => state.ManagerUsersReducer
   );
 
@@ -36,7 +37,6 @@ const ManagerUsers = () => {
     pageSize: 6,
     total: 1,
   });
-  const [loading, setLoading] = useState(false);
   let data = [];
 
   const columns = [
@@ -187,31 +187,25 @@ const ManagerUsers = () => {
   };
 
   const handleTableChange = ({ pagination }) => {
-    setLoading(true);
-    if (arrUserSearch) {
-      setPagination({ pagination });
-    } else {
-      dispatch(getUserByPagination(pagination));
-    }
+    dispatch(setLoading(true));
+    setPagination({ pagination });
     setTimeout(() => {
-      setLoading(false);
+      dispatch(setLoading(false));
     }, 500);
   };
 
   useEffect(() => {
-    setLoading(true);
     dispatch(getAllUser());
-    dispatch(getUserByPagination(pagination));
-    setPagination({ ...pagination, total: arrUsers.length });
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
   }, []);
+
+  useEffect(() => {
+    setPagination({ ...pagination, total: arrUsers.length });
+  }, [arrUsers]);
 
   if (arrUserSearch) {
     data = arrUserSearch;
   } else {
-    data = arrUserByPagination;
+    data = arrUsers;
   }
 
   return (
