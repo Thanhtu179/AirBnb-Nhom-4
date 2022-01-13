@@ -59,14 +59,20 @@ const ManagerRooms = () => {
   };
 
   useEffect(async () => {
-    setLoading(true);
+    // setLoading(true);
     dispatch(getAllRoom());
     dispatch(getRoomByPagination(pagination));
-    setPagination({ ...pagination, total: arrRoom.length });
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+
+    // setTimeout(() => {
+    //   setLoading(false);
+    // }, 500);
   }, []);
+
+  useEffect(() => {
+    if (pagination.current) {
+      setPagination({ ...pagination, total: arrRoom.length });
+    }
+  });
 
   if (arrSearch) {
     data = arrSearch;
