@@ -55,6 +55,7 @@ const ManagerRooms = () => {
     }
   };
 
+
   useEffect(() => {
     dispatch(getAllRoom());
   }, []);
@@ -62,6 +63,9 @@ const ManagerRooms = () => {
   useEffect(() => {
     setPagination({ ...pagination, total: arrRoom.length });
   }, [arrRoom]);
+
+  
+
 
   if (arrSearch) {
     data = arrSearch;
