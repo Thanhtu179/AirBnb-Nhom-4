@@ -25,6 +25,13 @@ export const AdminTemplate = (props) => {
   const [collapsed, setCollapsed] = useState(false);
   const { modalDrawer } = useSelector((state) => state.AdminControlReducer);
   const { drawerVisible, drawerContent, drawerTitle } = modalDrawer;
+  const pageAdminList = [
+    { index: 4, path: "/admin/users" },
+    { index: 5, path: "/admin/rooms" },
+    { index: 6, path: "/admin/locations" },
+  ];
+  let pageActive = pageAdminList.findIndex((item) => item.path == props.path);
+
   let userInfo = {};
   const menuAdminControl = (
     <>
@@ -95,7 +102,13 @@ export const AdminTemplate = (props) => {
                     <img src={logoAirbnb} alt="..." width={150} />
                   )}
                 </div>
-                <Menu theme="dark" defaultSelectedKeys={["4"]} mode="inline">
+                <Menu
+                  theme="dark"
+                  defaultSelectedKeys={[
+                    pageAdminList[pageActive].index.toString(),
+                  ]}
+                  mode="inline"
+                >
                   <Menu.Item key="4" icon={<UserSwitchOutlined />}>
                     <NavLink to="/admin/users">Quản lý người dùng</NavLink>
                   </Menu.Item>

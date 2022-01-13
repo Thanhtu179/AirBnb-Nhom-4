@@ -1,9 +1,10 @@
-import { SET_ARR_LOCATIONS, SET_ARR_LOCATIONS_BY_PAGINATION, SET_LOCATION_DATA_BY_ID } from "../Types/ManagerLocationType"
+import { SET_ARR_LOCATIONS, SET_ARR_LOCATIONS_BY_PAGINATION, SET_LOADING_LOCATION, SET_LOCATION_DATA_BY_ID } from "../Types/ManagerLocationType"
 
 const initialState = {
     arrLocation: [],
     locationData: {},
     arrLocationsByPagination: [],
+    loading: false,
 
 }
 
@@ -16,7 +17,6 @@ export default (state = initialState, action) => {
         }
 
         case SET_ARR_LOCATIONS_BY_PAGINATION: {
-            console.log("vao r")
             state.arrLocationsByPagination = action.arrLocationsByPagination;
             return { ...state };
         }
@@ -25,7 +25,9 @@ export default (state = initialState, action) => {
             state.locationData = action.locationData;
             return { ...state };
         }
-
+        case SET_LOADING_LOCATION: {
+            return { ...state, loading: action.loading };
+        }
 
         default:
             return state

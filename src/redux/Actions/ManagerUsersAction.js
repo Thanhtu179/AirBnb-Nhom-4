@@ -1,6 +1,6 @@
 import { history } from '../../App';
 import { managerUsersService } from "../../services/ManagerUsersService"
-import { LOGIN, SET_ARR_USERS, SET_ARR_USERS_BY_PANIGATION, SET_USER_INFO, SET_USER_INFO_BY_ID } from '../Types/ManagerUsersType';
+import { LOGIN, SET_ARR_USERS, SET_ARR_USERS_BY_PANIGATION, SET_LOADING_USER, SET_USER_INFO, SET_USER_INFO_BY_ID } from '../Types/ManagerUsersType';
 import { closeDrawer } from './AdminControlAction';
 
 
@@ -66,6 +66,7 @@ export const getUserInfoAction = (id) => {
 
 export const getAllUser = () => {
     return async (dispatch) => {
+        dispatch(setLoading(true));
         try {
             const result = await managerUsersService.getAllUser();
             if (result.status === 200) {
@@ -77,7 +78,9 @@ export const getAllUser = () => {
         } catch (error) {
             console.log(error);
         }
-
+        setTimeout(() => {
+            dispatch(setLoading(false));
+        }, 500)
     }
 
 }
@@ -88,8 +91,8 @@ export const deleteUserByIdAction = (id) => {
             const result = await managerUsersService.deleteUser(id);
             if (result.status === 200) {
                 alert('Xóa thành công');
-                dispatch(closeDrawer())
-                window.location.reload();
+                dispatch(getAllUser());
+                dispatch(closeDrawer());
             }
         } catch (error) {
             alert("xoa khong thanh cong")
@@ -105,8 +108,8 @@ export const updateUserByIdAction = (id, updateInfo) => {
             const result = await managerUsersService.updateUserInfo(id, updateInfo);
             if (result.status === 200) {
                 alert('Cập nhật phim thành công!');
-                dispatch(closeDrawer())
-                window.location.reload();
+                dispatch(getAllUser());
+                dispatch(closeDrawer());
             }
         } catch (error) {
             alert("Cập nhật không thành công có lỗi")
@@ -123,8 +126,8 @@ export const addUser = (userInfo) => {
             const result = await managerUsersService.createUser(userInfo)
             if (result.status === 200) {
                 alert('Thêm quản trị thành công');
+                dispatch(getAllUser());
                 dispatch(closeDrawer());
-                window.location.reload();
             }
         } catch (error) {
             console.log(error);
@@ -145,5 +148,11 @@ export const getUserByPagination = (pagination) => {
         } catch (error) {
             console.log(error);
         }
+    }
+}
+
+export const setLoading = (loading) => {
+    return async (dispatch) => {
+        dispatch({ type: SET_LOADING_USER, loading })
     }
 }

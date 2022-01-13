@@ -1,5 +1,5 @@
 import { TOKEN, USER_INFO, USER_LOGIN } from "../../utils/settingSystem";
-import { LOGIN, SET_ARR_USERS, SET_ARR_USERS_BY_PANIGATION, SET_USER_INFO, SET_USER_INFO_BY_ID } from "../Types/ManagerUsersType";
+import { LOGIN, SET_ARR_USERS, SET_ARR_USERS_BY_PANIGATION, SET_LOADING_USER, SET_USER_INFO, SET_USER_INFO_BY_ID } from "../Types/ManagerUsersType";
 
 let user = {};
 if (localStorage.getItem(USER_LOGIN)) {
@@ -16,7 +16,8 @@ const initialState = {
     userLogin: user,
     userInfoById: {},
     arrUsers: [],
-    arrUserByPagination: []
+    arrUserByPagination: [],
+    loading: false,
 }
 
 export default (state = initialState, action) => {
@@ -48,6 +49,10 @@ export default (state = initialState, action) => {
         case SET_ARR_USERS_BY_PANIGATION: {
             state.arrUserByPagination = action.arrUserByPanigation;
             return { ...state }
+        }
+
+        case SET_LOADING_USER: {
+            return { ...state, loading: action.loading };
         }
         default:
             return state

@@ -1,9 +1,10 @@
-import { SET_ARR_ROOM, SET_ARR_ROOM_BY_PANIGATION, SET_ROOM_DATA_BY_ID } from "../Types/ManagerRoomsType";
+import { SET_ARR_ROOM, SET_ARR_ROOM_BY_PANIGATION, SET_LOADING_ROOM, SET_ROOM_DATA_BY_ID } from "../Types/ManagerRoomsType";
 
 const initialState = {
     roomData: {},
     arrRoom: [],
     arrRoomByPanigation: [],
+    loading: false,
 }
 
 export default (state = initialState, action) => {
@@ -22,6 +23,10 @@ export default (state = initialState, action) => {
         case SET_ARR_ROOM_BY_PANIGATION: {
             state.arrRoomByPanigation = action.arrRoomByPanigation;
             return { ...state }
+        }
+
+        case SET_LOADING_ROOM: {
+            return { ...state, loading: action.loading };
         }
 
         default:

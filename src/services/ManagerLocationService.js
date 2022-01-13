@@ -22,7 +22,7 @@ export class ManagerLocationService extends baseService {
     }
 
     updateLocationInfoAvatart = (locationId, data) => {
-        return this.put(`api/locations/upload-images/${locationId}`, data);
+        return this.post(`api/locations/upload-images/${locationId}`, data);
     }
 
     getLocationListByValueate = (valueate) => {

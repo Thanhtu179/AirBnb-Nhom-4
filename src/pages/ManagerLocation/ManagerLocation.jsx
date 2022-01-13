@@ -13,17 +13,19 @@ import {
   getAllLocations,
   getLocationListByKey,
   getLocationListByPagination,
+  setLoading,
 } from "../../redux/Actions/ManagerLocationAction";
 import "./ManagerLocation.css";
 import EditLocation from "../../pages/ManagerLocation/EditLocation/EditLocation";
 import AddLocation from "../../pages/ManagerLocation/AddLocation/AddLocation";
 import { openDrawer } from "../../redux/Actions/AdminControlAction";
+import EditImageLocation from "./EditLocation/EditImageLocation";
 
 const { Search } = Input;
 
 const ManagerLocation = () => {
   const dispatch = useDispatch();
-  const { arrLocation, arrLocationsByPagination } = useSelector(
+  const { arrLocation, loading } = useSelector(
     (state) => state.ManagerLocationReducer
   );
   const [arrSearch, setArrSearch] = useState(null);
@@ -32,19 +34,14 @@ const ManagerLocation = () => {
     pageSize: 6,
     total: 1,
   });
-  const [loading, setLoading] = useState(false);
   let data = [];
 
   const handleTableChange = ({ pagination }) => {
-    setLoading(true);
-    if (arrSearch) {
-      setPagination({ pagination });
-    } else {
-      dispatch(getLocationListByPagination(pagination));
-    }
+    dispatch(setLoading(true));
+    setPagination({ pagination });
     setTimeout(() => {
-      setLoading(false);
-    }, 500);
+      dispatch(setLoading(false));
+    }, 1000);
   };
 
   const handleSearch = (value) => {
@@ -61,20 +58,18 @@ const ManagerLocation = () => {
     }
   };
 
-  useEffect(async () => {
-    setLoading(true);
+  useEffect(() => {
     dispatch(getAllLocations());
-    dispatch(getLocationListByPagination(pagination));
-    setPagination({ ...pagination, total: arrLocation.length });
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
   }, []);
+
+  useEffect(() => {
+    setPagination({ ...pagination, total: arrLocation.length });
+  }, [arrLocation]);
 
   if (arrSearch) {
     data = arrSearch;
   } else {
-    data = arrLocationsByPagination;
+    data = arrLocation;
   }
 
   const columns = [
@@ -112,7 +107,20 @@ const ManagerLocation = () => {
               />
             )}
             <div className="ml-5">
-              <Button shape="round" type="primary" ghost className="mx-1">
+              <Button
+                shape="round"
+                type="primary"
+                ghost
+                className="mx-1"
+                onClick={() =>
+                  dispatch(
+                    openDrawer(
+                      "Chỉnh sữa ảnh theo vị trí",
+                      <EditImageLocation id={location._id} />
+                    )
+                  )
+                }
+              >
                 Chỉnh sữa ảnh
               </Button>
             </div>
@@ -150,7 +158,7 @@ const ManagerLocation = () => {
               onClick={() =>
                 dispatch(
                   openDrawer(
-                    "Chỉnh sữa thông tin phòng",
+                    "Chỉnh sữa thông tin vị trí",
                     <EditLocation id={Location._id} />
                   )
                 )

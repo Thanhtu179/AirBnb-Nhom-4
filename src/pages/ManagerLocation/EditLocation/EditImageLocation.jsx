@@ -4,25 +4,25 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getRoomByIdAction,
-  updateAvatarRoomById,
-} from "../../../redux/Actions/ManagerRoomsAction";
+  getLocationByIdAction,
+  updateLocationAvatar,
+} from "../../../redux/Actions/ManagerLocationAction";
 
-const EditRoomImage = (props) => {
+const EditImageLocation = (props) => {
   let { id } = props;
   const dispatch = useDispatch();
-  const { roomData } = useSelector((state) => state.ManagerRoomsReducer);
+  const { locationData } = useSelector((state) => state.ManagerLocationReducer);
   const [imgSrc, setImgSrc] = useState("");
 
   const formik = useFormik({
     initialValues: {
-      image: roomData.image,
+      image: locationData.image,
     },
     onSubmit: (values) => {
-      // console.log("values", values);
+      //   console.log("values", values);
       let formData = new FormData();
-      formData.append("room", values.image, values.image.name);
-      dispatch(updateAvatarRoomById(id, formData));
+      formData.append("location", values.image, values.image.name);
+      dispatch(updateLocationAvatar(id, formData));
     },
   });
 
@@ -44,12 +44,12 @@ const EditRoomImage = (props) => {
   };
 
   useEffect(() => {
-    dispatch(getRoomByIdAction(id));
+    dispatch(getLocationByIdAction(id));
   }, []);
 
   useEffect(() => {
-    setImgSrc(roomData.image);
-  }, [roomData]);
+    setImgSrc(locationData.image);
+  }, [locationData]);
 
   return (
     <div className="container">
@@ -64,7 +64,7 @@ const EditRoomImage = (props) => {
         onFinish={formik.handleSubmit}
       >
         <h4 className="mb-5">
-          <i className="fab fa-airbnb mr-2"></i>Chỉnh sữa ảnh phòng
+          <i className="fab fa-airbnb mr-2"></i>Chỉnh sữa ảnh vị trí
         </h4>
         <Form.Item label="Hình ảnh">
           {imgSrc ? (
@@ -102,4 +102,4 @@ const EditRoomImage = (props) => {
   );
 };
 
-export default EditRoomImage;
+export default EditImageLocation;
