@@ -3,12 +3,19 @@ import "./Login.css";
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
-import { loginAction } from "../../redux/Actions/ManagerUsersAction";
+import {
+  getAllUser,
+  loginAction,
+} from "../../redux/Actions/ManagerUsersAction";
+import { useEffect } from "react";
 
 const Login = (props) => {
+  const { arrUsers, errorMessage } = useSelector(
+    (state) => state.ManagerUsersReducer
+  );
   const dispatch = useDispatch();
 
   const formik = useFormik({
@@ -26,9 +33,24 @@ const Login = (props) => {
         .max(32, "Mật khẩu từ 6 đến 32 ký tự"),
     }),
     onSubmit: (values) => {
-      dispatch(loginAction(values));
+      let index = arrUsers.findIndex((user) => user.email == values.email);
+      if (index == -1) {
+        formik.setFieldError("email", "Tài khoản không tồn tại");
+      } else {
+        dispatch(loginAction(values));
+      }
     },
   });
+
+  useEffect(() => {
+    dispatch(getAllUser());
+  }, []);
+
+  useEffect(() => {
+    formik.setFieldError("email", errorMessage);
+    formik.setFieldError("password", errorMessage);
+  }, [errorMessage]);
+
   return (
     <div className="login">
       <div className="login-overlay"></div>

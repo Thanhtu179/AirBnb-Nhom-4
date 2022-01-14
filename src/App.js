@@ -27,6 +27,7 @@ function App() {
         />
         <AdminTemplate exact path="/admin/rooms" Component={ManagerRooms} />
         <AdminTemplate exact path="/admin/users" Component={ManagerUsers} />
+        <AdminTemplate exact path="/admin" Component={ManagerUsers} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/home" component={Home} />

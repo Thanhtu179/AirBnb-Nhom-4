@@ -1,11 +1,13 @@
 import { history } from '../../App';
 import { managerUsersService } from "../../services/ManagerUsersService"
-import { LOGIN, SET_ARR_USERS, SET_ARR_USERS_BY_PANIGATION, SET_LOADING_USER, SET_USER_INFO, SET_USER_INFO_BY_ID } from '../Types/ManagerUsersType';
+import { LOGIN, SET_ARR_USERS, SET_ARR_USERS_BY_PANIGATION, SET_ERROR_MESSAGE, SET_LOADING_USER, SET_USER_INFO, SET_USER_INFO_BY_ID } from '../Types/ManagerUsersType';
 import { closeDrawer } from './AdminControlAction';
+import { formikLogin } from "../../pages/Login/Login";
 
 
 export const loginAction = (loginInfo) => {
     return async (dispatch) => {
+        dispatch(setError(""));
         try {
             const result = await managerUsersService.login(loginInfo);
             if (result.status === 200) {
@@ -24,7 +26,8 @@ export const loginAction = (loginInfo) => {
                 history.goBack();
             }
         } catch (error) {
-            console.log(error);
+            let errorMessage = error.response.data.message;
+            dispatch(setError(errorMessage));
         }
 
     }
@@ -154,5 +157,11 @@ export const getUserByPagination = (pagination) => {
 export const setLoading = (loading) => {
     return async (dispatch) => {
         dispatch({ type: SET_LOADING_USER, loading })
+    }
+}
+
+export const setError = (error) => {
+    return async (dispatch) => {
+        dispatch({ type: SET_ERROR_MESSAGE, error });
     }
 }

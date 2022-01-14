@@ -1,20 +1,26 @@
 import "./Register.css";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik, Field } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { registerAction } from "../../redux/Actions/ManagerUsersAction";
+import {
+  getAllUser,
+  registerAction,
+} from "../../redux/Actions/ManagerUsersAction";
+import { useSelector } from "react-redux";
 
 const Register = () => {
   const dispatch = useDispatch();
+  const { arrUsers } = useSelector((state) => state.ManagerUsersReducer);
 
   const formik = useFormik({
     initialValues: {
       name: "",
       email: "",
       password: "",
+      rePassword: "",
       phone: "",
       birthday: "",
       gender: true,
@@ -29,15 +35,30 @@ const Register = () => {
         .required("Mật khẩu không được bỏ trống !")
         .min(6, "Mật khẩu từ 6 đến 32 ký tự")
         .max(32, "Mật khẩu từ 6 đến 32 ký tự"),
+      rePassword: Yup.string()
+        .required("Mật khẩu không được bỏ trống !")
+        .min(6, "Mật khẩu từ 6 đến 32 ký tự")
+        .max(32, "Mật khẩu từ 6 đến 32 ký tự")
+        .oneOf([Yup.ref("password")], "Mật khẩu nhập lại không đúng"),
       phone: Yup.string().required("Không được bỏ trống"),
       birthday: Yup.string().required("Không được bỏ trống"),
       address: Yup.string().required("Không được bỏ trống"),
     }),
 
     onSubmit: (values) => {
-      dispatch(registerAction(values));
+      let index = arrUsers.findIndex((user) => user.email === values.email);
+      if (index != -1) {
+        formik.setFieldError("email", "Email đã được đăng ký");
+      } else {
+        dispatch(registerAction(values));
+      }
+      // console.log("object", values);
     },
   });
+
+  useEffect(() => {
+    dispatch(getAllUser());
+  }, []);
 
   return (
     <div className="register">
@@ -154,6 +175,24 @@ const Register = () => {
                       {formik.errors.password && formik.touched.password ? (
                         <div className="text-danger">
                           {formik.errors.password}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className="form-group mb-3">
+                      <label className="label" htmlFor="rePassword">
+                        Nhập lại mật khẩu
+                      </label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        placeholder="Nhập lại mật khẩu"
+                        name="rePassword"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.errors.rePassword && formik.touched.rePassword ? (
+                        <div className="text-danger">
+                          {formik.errors.rePassword}
                         </div>
                       ) : null}
                     </div>

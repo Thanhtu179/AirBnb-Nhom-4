@@ -26,6 +26,7 @@ export const AdminTemplate = (props) => {
   const { modalDrawer } = useSelector((state) => state.AdminControlReducer);
   const { drawerVisible, drawerContent, drawerTitle } = modalDrawer;
   const pageAdminList = [
+    { index: 4, path: "/admin" },
     { index: 4, path: "/admin/users" },
     { index: 5, path: "/admin/rooms" },
     { index: 6, path: "/admin/locations" },
