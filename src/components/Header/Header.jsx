@@ -1,9 +1,10 @@
 import React from "react";
 import "./Header.css";
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined, MenuOutlined } from "@ant-design/icons";
 
 export default function Header(props) {
-  let { menu } = props;
+  let { menu, bkColor, color } = props;
+  let src = "";
   function renderMenu(menu) {
     if (menu) {
       return (
@@ -14,17 +15,17 @@ export default function Header(props) {
         >
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link text-white" href="#">
+              <a className="nav-link" href="#" style={{ color: color }}>
                 Nơi ở
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link text-white" href="#">
+              <a className="nav-link" href="#" style={{ color: color }}>
                 Trải nghiệm
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link text-white" href="#">
+              <a className="nav-link" href="#" style={{ color: color }}>
                 Trải nghiệm trực tuyến
               </a>
             </li>
@@ -33,14 +34,25 @@ export default function Header(props) {
       );
     }
   }
+
+  if (bkColor == "black") {
+    src = "./img/logo-full-white.png";
+  } else if (bkColor == "white") {
+    src = "./../img/logo-full-red.png";
+  }
+
   return (
-    <div id="header">
+    <div id="header" style={{ backgroundColor: bkColor }}>
       <div>
-        <nav className="navbar navbar-expand-md navbar-dark">
+        <nav
+          className="navbar navbar-expand-md navbar-dark"
+          style={{ justifyContent: "space-between" }}
+        >
           {/* Brand */}
-          <a className={`navbar-brand header_logo`} href="#">
-            <img src="./img/logo-full-white.png" alt="..." />
+          <a className={`navbar-brand header_logo`} href="/">
+            <img src={src} alt="..." />
           </a>
+
           {/* Toggler/collapsibe Button */}
           <button
             className="navbar-toggler"
@@ -54,25 +66,24 @@ export default function Header(props) {
           {renderMenu(menu)}
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link text-white" href="#">
+              <a className="nav-link" href="#" style={{ color: color }}>
                 Đón tiếp khách
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link text-white" href="#">
-                <i class="fas fa-globe"></i>
+              <a className="nav-link" href="#" style={{ color: color }}>
+                <i className="fas fa-globe"></i>
               </a>
             </li>
             <li className="nav-item">
-              <button
-                className="navbar-toggler"
-                style={{ display: "inline-block" }}
-                type="button"
-                data-toggle="collapse"
+              <div
+                className={`header_user navbar-toggler`}
+
+                // data-toggle="collapse"
               >
-                <span className="navbar-toggler-icon mr-3" />
+                <MenuOutlined className="mr-3" />
                 <UserOutlined />
-              </button>
+              </div>
             </li>
           </ul>
         </nav>
