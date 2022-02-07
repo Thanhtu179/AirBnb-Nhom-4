@@ -1,8 +1,15 @@
-#header {
+/* #header {
   padding: 0 50px;
-  background-color: black;
-}
+} */
+
 .header_logo {
   width: 100px;
-  background-color: black;
+}
+
+.header_user {
+  display: inline-block !important;
+  color: black !important;
+  background-color: white;
+  border: 1px solid black !important;
+  border-radius: 40px !important;
 }

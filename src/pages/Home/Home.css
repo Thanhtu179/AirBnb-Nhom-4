@@ -16,8 +16,60 @@
   position: absolute;
   top: 80px;
   z-index: 10;
-  background-color: black;
+  /* background-color: black; */
   padding: 0 1rem;
   left: 50%;
   transform: translateX(-50%);
+}
+
+#list_room_search {
+  position: absolute;
+  top: 10px;
+  z-index: 10;
+  background-color: white;
+  padding: 0 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.btn_search {
+  position: absolute;
+  right: 5%;
+  top: 10%;
+}
+
+@media screen and (min-width: 1200px) {
+  #search_2 {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  #search_1 {
+    display: none;
+  }
+  .btn_search {
+    top: 25%;
+  }
+}
+
+@media screen and (max-width: 415px) {
+  #header {
+    /* display: none; */
+  }
+  #home_search {
+    /* top: 30px; */
+  }
+  .header_logo {
+    display: block;
+  }
+
+  .navbar-toggler {
+    display: none;
+  }
+
+  .navbar-nav li:first-child,
+  .fa-globe {
+    display: none;
+  }
 }

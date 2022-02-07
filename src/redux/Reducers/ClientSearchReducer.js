@@ -1,14 +1,19 @@
+import { SET_SEARCH } from "./../../redux/Types/ClientSearchType";
 const stateDefault = {
-  placeSearch: {
+  searchRoom: {
     place: "",
     checkin: "",
     checkout: "",
+    guests: 0,
+    checkinString: "",
+    checkoutString: "",
   },
 };
 
-export default ClientSearchReducer = (state = stateDefault, action) => {
+export default (state = stateDefault, action) => {
   switch (action.type) {
-    case "": {
+    case SET_SEARCH: {
+      state.searchRoom = action.data;
       return { ...state };
     }
     default:

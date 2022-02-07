@@ -7,16 +7,17 @@ import ManagerRoomsReducer from "./Reducers/ManagerRoomsReducer";
 import ManagerTicketsReducer from "./Reducers/ManagerTicketsReducer";
 import ManagerUsersReducer from "./Reducers/ManagerUsersReducer";
 import AdminControlReducer from "./Reducers/AdminControlReducer";
-
+import ClientSearchReducer from "./Reducers/ClientSearchReducer";
 
 const rootReducer = combineReducers({
-    ManagerLocationReducer,
-    ManagerReviewsReducer,
-    ManagerRoomsReducer,
-    ManagerTicketsReducer,
-    ManagerUsersReducer,
-    AdminControlReducer
+  ManagerLocationReducer,
+  ManagerReviewsReducer,
+  ManagerRoomsReducer,
+  ManagerTicketsReducer,
+  ManagerUsersReducer,
+  AdminControlReducer,
+  ClientSearchReducer,
 });
 
-const store = createStore(rootReducer, (applyMiddleware(reduxThunk)));
+const store = createStore(rootReducer, applyMiddleware(reduxThunk));
 export default store;
