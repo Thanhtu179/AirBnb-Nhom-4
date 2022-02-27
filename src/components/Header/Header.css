@@ -12,4 +12,12 @@
   background-color: white;
   border: 1px solid black !important;
   border-radius: 40px !important;
+  padding: 5px;
+}
+
+.icon_user {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  border-radius: 50%;
 }

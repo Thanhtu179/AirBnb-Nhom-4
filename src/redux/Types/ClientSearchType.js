@@ -1,1 +1,4 @@
 export const SET_SEARCH = "SET_SEARCH";
+export const SET_MENU_INDEX = "SET_MENU_INDEX";
+export const CLICK_SEARCH_SCROLL = "CLICK_SEARCH_SCROLL";
+export const SCROLL_SCREEN = "SCROLL_SCREEN";

@@ -24,14 +24,14 @@ export const RoomDetailTemplate = (props) => {
 
     return () => {
       window.removeEventListener("onresize");
-      window.removeEventListener("onreload");
+      window.removeEventListener("onload");
     };
   }, []);
 
   let { Component, path } = props;
 
   const renderComponent = (propsRoute) => {
-    if (widthHeight.width <= 415 && props.MobileComponent) {
+    if (widthHeight.width <= 416 && props.MobileComponent) {
       return <props.MobileComponent {...propsRoute} />;
     }
     return <Component {...propsRoute} />;

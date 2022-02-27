@@ -41,7 +41,7 @@ export const AdminTemplate = (props) => {
           <div
             onClick={() => {
               console.log("id", userInfo._id);
-              history.push(`/user/${userInfo._id}`);
+              history.push(`/users/${userInfo._id}`);
             }}
           >
             <i className="fas fa-arrow-right mr-2" /> Cập nhật thông tin

@@ -2,28 +2,24 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SET_SEARCH } from "../../redux/Types/ClientSearchType";
 import "./RoomDetail.css";
-import { Button, Tooltip, DatePicker, Select } from "antd";
+import { Menu, Dropdown, DatePicker, Select } from "antd";
 import { managerRoomsService } from "../../services/ManagerRoomsService";
 import { managerReviewsService } from "../../services/ManagerReviewsService";
 import formatNumber from "../../utils/formatNumber";
 
-let checkinString = "0";
-let checkoutString = "0";
+let checkinString = "";
+let checkoutString = "";
+let place = "Bạn sắp đi đâu?";
+let checkin;
+let checkout;
+let guests = "";
+let guestsTotal = 0;
 
 export default function RoomDetailMobile(props) {
   const { id } = props.match.params;
-  const { Option } = Select;
-  let [place, setPlace] = useState("");
-  let [checkin, setCheckin] = useState("");
-  let [checkout, setCheckout] = useState("");
-  let [guests, setGuests] = useState(0);
   let { searchRoom } = useSelector(
     (rootReducer) => rootReducer.ClientSearchReducer
   );
-  place = searchRoom.place;
-  checkin = searchRoom.checkin;
-  checkout = searchRoom.checkout;
-  guests = searchRoom.guests;
 
   let [detail, setDetail] = useState([]);
   let [review, setReview] = useState([]);
@@ -44,6 +40,7 @@ export default function RoomDetailMobile(props) {
         guests: guests,
         checkinString: checkinString,
         checkoutString: checkoutString,
+        guestsTotal: guestsTotal,
       },
     };
     dispatch(action);
@@ -60,10 +57,173 @@ export default function RoomDetailMobile(props) {
     dispatchToReducer();
   }
 
-  function onChangeGuest(event) {
-    guests = event.target.value;
+  let [selectGuest, setSelectGuest] = useState({
+    adult: 0,
+    child: 0,
+    baby: 0,
+    pet: 0,
+  });
+
+  const selectButtonGuest = (index, item) => {
+    if (item !== "adult" && selectGuest[item] == 0 && selectGuest.adult == 0) {
+      selectGuest["adult"]++;
+    }
+    if (index == -1) {
+      if (selectGuest[item] > 0) {
+        selectGuest[item]--;
+      }
+    } else if (index == 1) {
+      selectGuest[item]++;
+    }
+    setSelectGuest({ ...selectGuest });
+    guests = getGuests();
+    guestsTotal = selectGuest.adult + selectGuest.child;
     dispatchToReducer();
-  }
+  };
+
+  const isNotAdultSelect =
+    selectGuest["adult"] == 1 &&
+    (selectGuest["child"] > 0 ||
+      selectGuest["baby"] > 0 ||
+      selectGuest["pet"] > 0);
+
+  const menuGuest = (
+    <Menu
+      // onClick={onClickPlace}
+      className="p-4"
+      style={{
+        borderRadius: "15px",
+        backgroundColor: "#FFFFFF",
+        width: "350px",
+      }}
+    >
+      <li>
+        <div className="row align-items-center">
+          <div className="col-6">
+            <div className="font-weight-bold">Người lớn</div>
+            <div>Từ 13 tuổi trở lên</div>
+          </div>
+          <div className="col-6 text-center">
+            <button
+              className={`btn btn_search_guest ${
+                selectGuest.adult == 0 || isNotAdultSelect
+                  ? "button_disabled"
+                  : ""
+              }`}
+              onClick={() => selectButtonGuest(-1, "adult")}
+            >
+              -
+            </button>
+            <span className="mx-2">{selectGuest.adult}</span>
+            <button
+              className="btn btn_search_guest"
+              onClick={() => selectButtonGuest(1, "adult")}
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <hr style={{ marginBottom: "0px" }} />
+      </li>
+      <li>
+        <div className="row align-items-center">
+          <div className="col-6">
+            <div className="font-weight-bold">Trẻ em</div>
+            <div>Độ tuổi 2 - 12</div>
+          </div>
+          <div className="col-6 text-center">
+            <button
+              className={`btn btn_search_guest ${
+                selectGuest.child == 0 ? "button_disabled" : ""
+              }`}
+              onClick={() => selectButtonGuest(-1, "child")}
+            >
+              -
+            </button>
+            <span className="mx-2">{selectGuest.child}</span>
+            <button
+              className="btn btn_search_guest"
+              onClick={() => selectButtonGuest(1, "child")}
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <hr style={{ marginBottom: "0px" }} />
+      </li>
+      <li>
+        <div className="row align-items-center">
+          <div className="col-6">
+            <div className="font-weight-bold">Em bé</div>
+            <div>Dưới 2</div>
+          </div>
+          <div className="col-6 text-center">
+            <button
+              className={`btn btn_search_guest ${
+                selectGuest.baby == 0 ? "button_disabled" : ""
+              }`}
+              onClick={() => selectButtonGuest(-1, "baby")}
+            >
+              -
+            </button>
+            <span className="mx-2">{selectGuest.baby}</span>
+            <button
+              className="btn btn_search_guest"
+              onClick={() => selectButtonGuest(1, "baby")}
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <hr style={{ marginBottom: "0px" }} />
+      </li>
+      <li>
+        <div className="row align-items-center">
+          <div className="col-6">
+            <div className="font-weight-bold">Thú cưng</div>
+            <a style={{ textDecoration: "underline", color: "black" }}>
+              Bạn muốn mang theo động vật hỗ trợ?
+            </a>
+          </div>
+          <div className="col-6 text-center">
+            <button
+              className={`btn btn_search_guest ${
+                selectGuest.pet == 0 ? "button_disabled" : ""
+              }`}
+              onClick={() => selectButtonGuest(-1, "pet")}
+            >
+              -
+            </button>
+            <span className="mx-2">{selectGuest.pet}</span>
+            <button
+              className="btn btn_search_guest"
+              onClick={() => selectButtonGuest(1, "pet")}
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <span style={{ color: "gray" }}>
+          Nếu bạn may mắn có nhiều hơn 2 thú cưng đi cùng, hãy nhớ cho Chủ nhà
+          biết
+        </span>
+      </li>
+    </Menu>
+  );
+
+  const getGuests = () => {
+    let res = "";
+    if (selectGuest["adult"] > 0) {
+      res += selectGuest["adult"] + selectGuest["child"] + " khách,";
+      if (selectGuest["baby"] > 0) {
+        res += selectGuest["baby"] + " em bé,";
+      }
+      if (selectGuest["pet"] > 0) {
+        res += selectGuest["pet"] + " thú cưng";
+      }
+    }
+    return res;
+  };
 
   const getRoomDetail = (id) => {
     let promise = managerRoomsService.getRoomInfo(id);
@@ -113,7 +273,8 @@ export default function RoomDetailMobile(props) {
 
   const countDate = () => {
     return (
-      (Date.parse(checkoutString) - Date.parse(checkinString)) /
+      (Date.parse(searchRoom.checkoutString) -
+        Date.parse(searchRoom.checkinString)) /
       (24 * 60 * 60 * 1000)
     );
   };
@@ -142,7 +303,7 @@ export default function RoomDetailMobile(props) {
             </li>
             <li>
               <a href="" style={{ color: "black" }}>
-                Thành phố Vũng Tàu
+                {detail.locationId ? detail.locationId.province : ""}
               </a>
             </li>
           </ul>
@@ -367,7 +528,7 @@ export default function RoomDetailMobile(props) {
               >
                 <label>Nhận phòng</label>
                 <DatePicker
-                  value={checkin}
+                  value={searchRoom.checkin}
                   onChange={onChangeCheckin}
                   bordered={false}
                   className="p-0"
@@ -378,7 +539,7 @@ export default function RoomDetailMobile(props) {
               <div className="col-6 d-flex flex-column">
                 <label>Trả phòng</label>
                 <DatePicker
-                  value={checkout}
+                  value={searchRoom.checkout}
                   onChange={onChangeCheckout}
                   bordered={false}
                   className="p-0"
@@ -391,16 +552,25 @@ export default function RoomDetailMobile(props) {
                 className="col-12 d-flex flex-column"
                 style={{ borderTop: "1px solid black" }}
               >
-                <label>Khách</label>
-                <input
-                  type="text"
-                  placeholder="Thêm khách"
-                  size="15"
-                  style={{ border: "none" }}
-                  value={guests}
-                  onChange={onChangeGuest}
-                  size="small"
-                />
+                <Dropdown overlay={menuGuest} trigger={["click"]}>
+                  <a
+                    className="ant-dropdown-link"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    Khách
+                    <input
+                      type="text"
+                      placeholder="Thêm khách"
+                      size="15"
+                      style={{
+                        display: "block",
+                        border: "none",
+                        marginTop: "10px",
+                      }}
+                      value={searchRoom.guests}
+                    />
+                  </a>
+                </Dropdown>
               </div>
             </div>
           </div>
