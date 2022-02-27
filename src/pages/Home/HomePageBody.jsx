@@ -44,7 +44,7 @@ let diaDiem = [
   },
 ];
 
-let sizeAnhDacDiem = "/200/200";
+let sizeAnhDacDiem = "/300/300";
 let dacDiem = [
   {
     hinhAnh: "https://picsum.photos/id/1040" + sizeAnhDacDiem,

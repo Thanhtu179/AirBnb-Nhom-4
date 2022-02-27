@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import { Drawer, Button, Space } from "antd";
 
 const DrawerModel = (props) => {
-  let { title, Component, visible, onClose } = props;
+  let { title, Component, visible, onClose, width } = props;
   return (
     <Drawer
       title={title}
       placement="right"
       onClose={onClose}
-      width={736}
+      width={width == undefined ? 736 : width}
       visible={visible}
     >
       {Component}

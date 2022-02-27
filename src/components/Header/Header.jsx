@@ -1,93 +1,134 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
-import { UserOutlined, MenuOutlined } from "@ant-design/icons";
+import { Menu, Dropdown } from "antd";
+import { history } from "./../../App";
+import { TOKEN, USER_INFO, USER_LOGIN } from "../../utils/settingSystem";
 
 export default function Header(props) {
-  let { menu, bkColor, color } = props;
+  let { bkColor, color, changeAvatar } = props;
   let src = "";
-  function renderMenu(menu) {
-    if (menu) {
-      return (
-        <div
-          className="collapse navbar-collapse"
-          id="collapsibleNavbar"
-          style={{ justifyContent: "center" }}
-        >
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <a className="nav-link" href="#" style={{ color: color }}>
-                Nơi ở
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#" style={{ color: color }}>
-                Trải nghiệm
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#" style={{ color: color }}>
-                Trải nghiệm trực tuyến
-              </a>
-            </li>
-          </ul>
-        </div>
-      );
-    }
+  let isLogin = false;
+  if (localStorage.getItem(USER_INFO)) {
+    isLogin = true;
   }
+  const [userInfo, setUserInfo] = useState({});
 
-  if (bkColor == "black") {
+  useEffect(() => {
+    if (localStorage.getItem(USER_INFO)) {
+      setUserInfo(JSON.parse(localStorage.getItem(USER_INFO)));
+    }
+  }, [changeAvatar]);
+
+  if (bkColor === "black") {
     src = "./img/logo-full-white.png";
-  } else if (bkColor == "white") {
+  } else if (bkColor === "white") {
     src = "./../img/logo-full-red.png";
   }
 
-  return (
-    <div id="header" style={{ backgroundColor: bkColor }}>
-      <div>
-        <nav
-          className="navbar navbar-expand-md navbar-dark"
-          style={{ justifyContent: "space-between" }}
-        >
-          {/* Brand */}
-          <a className={`navbar-brand header_logo`} href="/">
-            <img src={src} alt="..." />
-          </a>
+  const menuBarNotLogin = (
+    <Menu>
+      <Menu.Item key="0">
+        <div onClick={() => history.push("/login")}>
+          <i className="fas fa-arrow-right mr-2" />
+          Đăng nhập
+        </div>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <div onClick={() => history.push("/register")}>
+          <i className="fas fa-arrow-right mr-2" />
+          Đăng ký
+        </div>
+      </Menu.Item>
+      )
+    </Menu>
+  );
 
-          {/* Toggler/collapsibe Button */}
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapsibleNavbar"
+  const menuBarLogin = (
+    <Menu>
+      {userInfo.type == "ADMIN" ? (
+        <Menu.Item key="0">
+          <div
+            onClick={() => {
+              history.push(`/admin`);
+            }}
           >
-            <span className="navbar-toggler-icon" />
-          </button>
-          {/* Navbar links */}
-          {renderMenu(menu)}
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <a className="nav-link" href="#" style={{ color: color }}>
-                Đón tiếp khách
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#" style={{ color: color }}>
-                <i className="fas fa-globe"></i>
-              </a>
-            </li>
-            <li className="nav-item">
-              <div
-                className={`header_user navbar-toggler`}
+            <i className="fas fa-arrow-right mr-2" /> Trang quản trị admin
+          </div>
+        </Menu.Item>
+      ) : (
+        <></>
+      )}
+      <Menu.Item key="1">
+        <div
+          onClick={() => {
+            history.push(`/users/${userInfo._id}`);
+          }}
+        >
+          <i className="fas fa-arrow-right mr-2" /> Cập nhật thông tin
+        </div>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key="2">
+        <div
+          onClick={() => {
+            localStorage.removeItem(USER_LOGIN);
+            localStorage.removeItem(TOKEN);
+            localStorage.removeItem(USER_INFO);
+            history.push("/home");
+            window.location.reload();
+          }}
+        >
+          <i className="fas fa-arrow-right mr-2" /> Đăng xuất
+        </div>
+      </Menu.Item>
+    </Menu>
+  );
 
-                // data-toggle="collapse"
+  return (
+    <div id="header" style={{ backgroundColor: bkColor, color: color }}>
+      {/* <div> */}
+      <nav
+        className="navbar navbar-expand-md navbar-dark"
+        style={{ justifyContent: "space-between" }}
+      >
+        {/* Brand */}
+        <a className={`navbar-brand header_logo`} href="/">
+          <img src={src} alt="..." />
+        </a>
+
+        <ul className="d-flex flex-row mb-0" style={{ marginLeft: "-20px" }}>
+          <li className="nav-item">
+            <a className="nav-link" href="#" style={{ color: color }}>
+              Đón tiếp khách
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#" style={{ color: color }}>
+              <i className="fas fa-globe"></i>
+            </a>
+          </li>
+          <li className="header_user">
+            <Dropdown overlay={isLogin ? menuBarLogin : menuBarNotLogin}>
+              <a
+                className="ant-dropdown-link"
+                onClick={(e) => e.preventDefault()}
               >
-                <MenuOutlined className="mr-3" />
-                <UserOutlined />
-              </div>
-            </li>
-          </ul>
-        </nav>
-      </div>
+                <i class="fa-solid fa-bars fa-lg"></i>
+                <img
+                  className="icon_user"
+                  src={
+                    userInfo.avatar
+                      ? userInfo.avatar
+                      : "https://png.pngtree.com/png-vector/20190803/ourlarge/pngtree-user-id-login-image-png-image_1648074.jpg"
+                  }
+                  alt="..."
+                />
+              </a>
+            </Dropdown>
+          </li>
+        </ul>
+      </nav>
+      {/* </div> */}
     </div>
   );
 }

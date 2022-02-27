@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 
-export const ListRoomTemplate = (props) => {
-  const [widthHeight, setWidthHeight] = useState({
+export default function UserInfoTemplate(props) {
+  let [widthHeight, setWidthHeight] = useState({
     width: window.innerWidth,
-    height: window.innerHeight,
+    height: window.height,
   });
 
   useEffect(() => {
@@ -13,6 +13,7 @@ export const ListRoomTemplate = (props) => {
         width: window.innerWidth,
         height: window.innerHeight,
       });
+      // console.log("onresize widthHeight.width:", widthHeight.width);
     };
 
     window.onload = () => {
@@ -29,13 +30,14 @@ export const ListRoomTemplate = (props) => {
   }, []);
 
   let { Component, path } = props;
-
   const renderComponent = (propsRoute) => {
-    if (widthHeight.width <= 765 && props.MobileComponent) {
+    if (widthHeight.width <= 415 && props.MobileComponent) {
       return <props.MobileComponent {...propsRoute} />;
+    } else {
+      return <Component {...propsRoute} />;
     }
-    return <Component {...propsRoute} />;
   };
+
   return (
     <Route
       exact
@@ -45,4 +47,4 @@ export const ListRoomTemplate = (props) => {
       }}
     />
   );
-};
+}

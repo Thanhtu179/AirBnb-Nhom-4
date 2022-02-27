@@ -5,7 +5,7 @@ import { AdminTemplate } from "./templates/AdminTemplate/AdminTemplate";
 import ManagerLocation from "./pages/ManagerLocation/ManagerLocation";
 import ManagerRooms from "./pages/ManagerRooms/ManagerRooms";
 import ManagerUsers from "./pages/ManagerUsers/ManagerUsers";
-import UserInfo from "./pages/UserInfo/UserInfo";
+import UserInfoPage from "./pages/UserInfo/UserInfoPage";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import LocationInfo from "./pages/LocationInfo/LocationInfo";
@@ -19,6 +19,8 @@ import { ListRoomMobile } from "./pages/RoomList/ListRoomMobile";
 import RoomDetailPage from "./pages/RoomDetail/RoomDetailPage";
 import { RoomDetailTemplate } from "./templates/ClientTemplate/RoomDetailTemplate.jsx";
 import RoomDetailMobile from "./pages/RoomDetail/RoomDetailMobile";
+import UserInfoTemplate from "./templates/ClientTemplate/UserInfoTemplate";
+import UserInfoMobile from "./pages/UserInfo/UserInfoMobile";
 
 export const history = createBrowserHistory();
 
@@ -49,7 +51,12 @@ function App() {
           MobileComponent={HomeMobile}
         />
         <Route exact path="/rooms/:id" component={RoomInfo} />
-        <Route exact path="/users/:id" component={UserInfo} />
+        <UserInfoTemplate
+          exact
+          path="/users/:id"
+          Component={UserInfoPage}
+          MobileComponent={UserInfoMobile}
+        />
         <Route exact path="/locations/:id" component={LocationInfo} />
         <ListRoomTemplate
           exact

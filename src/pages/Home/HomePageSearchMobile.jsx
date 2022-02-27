@@ -18,7 +18,7 @@ let checkout;
 let guests = "";
 let guestsTotal = 0;
 
-export default function HomePageSearch(props) {
+export default function HomePageSearchMobile(props) {
   const { id, menu, color, marginTop } = props;
   let [placeList, setPlaceList] = useState([]);
   let { searchRoom } = useSelector(
@@ -44,8 +44,7 @@ export default function HomePageSearch(props) {
   };
 
   const onClickPlace = ({ key }) => {
-    place = placeList.find((element, index) => index == key);
-    place = place.name + ", " + place.province;
+    place = placeList.find((element, index) => index == key).name;
     dispatchToReducer();
   };
   const menuPlace = (
@@ -316,29 +315,26 @@ export default function HomePageSearch(props) {
   useEffect(() => {
     getLocation();
   }, []);
+
   return (
     <div className="menu_list">
       {menu ? renderMenu() : ""}
       <div
         style={{ marginTop: marginTop }}
         id={id}
-        className={
-          id == "home_search" || id == "list_room_search"
-            ? "active"
-            : "not_active"
-        }
+        className={id == "home_search" ? "active" : "not_active"}
       >
         <div
           id="search_1"
           className={`row flex-nowrap p-3 ${menuIndex == 1 ? "active" : ""}`}
+          style={{
+            width: "300px",
+          }}
         >
-          <div
-            className="col-xl-3 col-md-3"
-            style={{ borderRight: "1px solid black", overflow: "hidden" }}
-          >
+          <div className="col-6" style={{ borderRight: "1px solid black" }}>
             <label>Địa điểm</label>
             <br />
-            <Dropdown overlay={menuPlace} trigger={["click"]} size="10">
+            <Dropdown overlay={menuPlace} trigger={["click"]}>
               <a
                 className="ant-dropdown-link"
                 onClick={(e) => e.preventDefault()}
@@ -348,10 +344,7 @@ export default function HomePageSearch(props) {
             </Dropdown>
           </div>
 
-          <div
-            className="col-xl-3 col-md-3"
-            style={{ borderRight: "1px solid black", overflow: "hidden" }}
-          >
+          {/* <div className="col-6" style={{ borderRight: "1px solid black" }}>
             <label>Nhận phòng</label>
             <DatePicker
               value={searchRoom.checkin}
@@ -362,10 +355,7 @@ export default function HomePageSearch(props) {
             />
           </div>
 
-          <div
-            className="col-xl-3 col-md-3"
-            style={{ borderRight: "1px solid black", overflow: "hidden" }}
-          >
+          <div className="col-6" style={{ borderRight: "1px solid black" }}>
             <label>Trả phòng</label>
             <DatePicker
               value={searchRoom.checkout}
@@ -374,9 +364,9 @@ export default function HomePageSearch(props) {
               className="p-0"
               placeholder="Thêm ngày"
             />
-          </div>
+          </div> */}
 
-          <div className="col-xl-3 col-md-3" style={{ position: "relative" }}>
+          <div className="col-6" style={{ position: "relative" }}>
             <div>
               <Dropdown overlay={menuGuest} trigger={["click"]}>
                 <a
@@ -417,7 +407,7 @@ export default function HomePageSearch(props) {
         >
           <div
             className="col-xl-6 col-md-6"
-            style={{ borderRight: "1px solid black", overflow: "hidden" }}
+            style={{ borderRight: "1px solid black" }}
           >
             <label>Địa điểm</label>
             <br />
@@ -456,10 +446,14 @@ export default function HomePageSearch(props) {
       </div>
       <button
         id="search_3"
-        style={{ marginTop: marginTop }}
-        className={`row flex-nowrap p-3 justify-content-between ${
+        className={`row flex-nowrap p-1 justify-content-between ${
           id == "home_search_scroll" ? "active" : "not_active"
         }`}
+        style={{
+          marginTop: marginTop,
+          width: "170px",
+          transform: "translateX(-37%)",
+        }}
         onClick={() => {
           clickHomeSearchScroll();
         }}

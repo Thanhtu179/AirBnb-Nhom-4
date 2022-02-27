@@ -12,6 +12,7 @@ const EditImageLocation = (props) => {
   let { id } = props;
   const dispatch = useDispatch();
   const { locationData } = useSelector((state) => state.ManagerLocationReducer);
+  console.log("locationData: ", locationData);
   const [imgSrc, setImgSrc] = useState("");
 
   const formik = useFormik({

@@ -23,15 +23,15 @@ export const HomeTemplate = (props) => {
     };
 
     return () => {
-      window.removeEventListener("onresize", this.onresize);
-      window.removeEventListener("onreload", this.onreload);
+      window.removeEventListener("onresize");
+      window.removeEventListener("onload");
     };
   }, []);
 
   const { Component, path } = props;
 
   const renderComponent = (propsRoute) => {
-    if (widthHeight.width < 765 && props.MobileComponent) {
+    if (widthHeight.width <= 415 && props.MobileComponent) {
       return <props.MobileComponent {...propsRoute} />;
     }
     return <Component {...propsRoute} />;

@@ -52,7 +52,7 @@ export default function Footer() {
   ];
 
   return (
-    <div className="p-5" style={{ backgroundColor: "gray" }}>
+    <div className="p-5" style={{ backgroundColor: "#F7F7F7" }}>
       <div className="row">
         {footer.map((hd, index) => {
           return (

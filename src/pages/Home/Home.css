@@ -1,3 +1,48 @@
+#header {
+  padding: 10px 0px;
+}
+.menu_list {
+  position: fixed;
+  top: 35px;
+  z-index: 10;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.menu_item_white,
+.menu_item_black {
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+}
+.menu_item_white::after {
+  content: "";
+  width: 0;
+  height: 100%;
+  position: absolute;
+  border-bottom: 1px solid white;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: 0.2s;
+}
+.menu_item_white:hover::after {
+  width: 25%;
+}
+
+.menu_item_black::after {
+  content: "";
+  width: 0;
+  height: 100%;
+  position: absolute;
+  border-bottom: 1px solid black;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: 0.2s;
+}
+.menu_item_black:hover::after {
+  width: 25%;
+}
+
 #carousel {
   padding: 10px 50px;
   background-color: black !important;
@@ -14,9 +59,9 @@
 
 #home_search {
   position: absolute;
-  top: 80px;
+  top: 45px;
   z-index: 10;
-  /* background-color: black; */
+  display: none;
   padding: 0 1rem;
   left: 50%;
   transform: translateX(-50%);
@@ -24,9 +69,9 @@
 
 #list_room_search {
   position: absolute;
-  top: 10px;
+  top: -20px;
   z-index: 10;
-  background-color: white;
+  display: none;
   padding: 0 1rem;
   left: 50%;
   transform: translateX(-50%);
@@ -38,38 +83,47 @@
   top: 10%;
 }
 
-@media screen and (min-width: 1200px) {
-  #search_2 {
-    display: none;
-  }
+.btn_search_guest {
+  border: 1px solid gray;
+  padding: 1px 8px;
+  border-radius: 50%;
 }
 
-@media screen and (max-width: 1199px) {
-  #search_1 {
-    display: none;
-  }
-  .btn_search {
-    top: 25%;
-  }
+.button_disabled {
+  opacity: 0.3;
+  cursor: not-allowed !important;
 }
 
-@media screen and (max-width: 415px) {
-  #header {
-    /* display: none; */
-  }
-  #home_search {
-    /* top: 30px; */
-  }
-  .header_logo {
-    display: block;
-  }
+#search_1,
+#search_2 {
+  display: none;
+  width: 700px;
+  height: 85px;
+  border: 1px solid black;
+  border-radius: 50px;
+  background-color: white;
+}
 
-  .navbar-toggler {
-    display: none;
-  }
+#search_3 {
+  display: none;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 50px;
+  background-color: white;
+  position: fixed;
+  width: 300px;
+  align-content: center;
+  align-items: center;
+  margin: auto;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
 
-  .navbar-nav li:first-child,
-  .fa-globe {
-    display: none;
-  }
+.active {
+  display: flex !important;
+}
+.not_active {
+  display: none !important;
 }
