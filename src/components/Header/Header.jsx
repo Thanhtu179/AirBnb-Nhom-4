@@ -5,7 +5,7 @@ import { history } from "./../../App";
 import { TOKEN, USER_INFO, USER_LOGIN } from "../../utils/settingSystem";
 
 export default function Header(props) {
-  let { bkColor, color, changeAvatar } = props;
+  let { bkColor, color, changeAvatar, mobile } = props;
   let src = "";
   let isLogin = false;
   if (localStorage.getItem(USER_INFO)) {
@@ -84,26 +84,51 @@ export default function Header(props) {
     </Menu>
   );
 
+  const style = {
+    backgroundColor: bkColor,
+    color: color,
+  };
+  const mobileStyle = {
+    backgroundColor: bkColor,
+    color: color,
+    paddingBottom: "55px",
+  };
+
   return (
-    <div id="header" style={{ backgroundColor: bkColor, color: color }}>
+    <div id="header" style={mobile ? mobileStyle : style}>
       {/* <div> */}
       <nav
-        className="navbar navbar-expand-md navbar-dark"
-        style={{ justifyContent: "space-between" }}
+        className="d-flex"
+        style={{ justifyContent: "space-between", padding: "0.5rem 1rem" }}
       >
         {/* Brand */}
         <a className={`navbar-brand header_logo`} href="/">
           <img src={src} alt="..." />
         </a>
 
-        <ul className="d-flex flex-row mb-0" style={{ marginLeft: "-20px" }}>
+        <ul
+          className="d-flex flex-row mb-0"
+          style={{ marginLeft: "-20px", alignItems: "end" }}
+        >
+          {mobile ? (
+            ""
+          ) : (
+            <li className="nav-item">
+              <a
+                className="nav-link"
+                href="#"
+                style={{ color: color, padding: "0.5rem" }}
+              >
+                Đón khách
+              </a>
+            </li>
+          )}
           <li className="nav-item">
-            <a className="nav-link" href="#" style={{ color: color }}>
-              Đón tiếp khách
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#" style={{ color: color }}>
+            <a
+              className="nav-link"
+              href="#"
+              style={{ color: color, padding: "0.5rem" }}
+            >
               <i className="fas fa-globe"></i>
             </a>
           </li>
@@ -113,7 +138,10 @@ export default function Header(props) {
                 className="ant-dropdown-link"
                 onClick={(e) => e.preventDefault()}
               >
-                <i class="fa-solid fa-bars fa-lg"></i>
+                <i
+                  class="fa-solid fa-bars fa-lg"
+                  style={{ verticalAlign: "middle" }}
+                ></i>
                 <img
                   className="icon_user"
                   src={
@@ -132,7 +160,3 @@ export default function Header(props) {
     </div>
   );
 }
-
-export const HeaderFix = () => {
-  return <div>HeaderFix</div>;
-};

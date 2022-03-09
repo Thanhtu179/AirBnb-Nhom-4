@@ -118,7 +118,7 @@ export const ListRoomPage = (props) => {
               menu={false}
               color="white"
               id="list_room_search"
-              marginTop="10px"
+              marginTop="60px"
             />
           </div>
         )}
@@ -150,7 +150,7 @@ export const ListRoomPage = (props) => {
   };
 
   return (
-    <div style={{ marginTop: "130px" }}>
+    <div style={{ marginTop: "200px" }}>
       {clickSearchScroll ? clickSearch() : notClickSearch()}
       <div className="pl-5 mt-5">
         <div className="row" style={{ width: "100%" }}>
@@ -182,7 +182,14 @@ export const ListRoomPage = (props) => {
                     key={index}
                   >
                     <div className="col-6">
-                      <img src={list.image} alt="" />
+                      <img
+                        src={
+                          list.image
+                            ? list.image
+                            : "https://picsum.photos/id/1008/300/300"
+                        }
+                        alt=""
+                      />
                     </div>
                     <div className="col-6">
                       <h6>{list.name}</h6>

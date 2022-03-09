@@ -322,13 +322,26 @@ export default function RoomDetailMobile(props) {
 
         <div className="row">
           <div className="col-6">
-            <img src={detail.image} width={"100%"} height={"100%"} alt="..." />
+            <img
+              src={
+                detail.image
+                  ? detail.image
+                  : "https://picsum.photos/id/1008/300/300"
+              }
+              width={"100%"}
+              height={"100%"}
+              alt="..."
+            />
           </div>
           <div className="col-6 flex_col_between">
             <div className="row">
               <div className="col-6">
                 <img
-                  src={detail.image}
+                  src={
+                    detail.image
+                      ? detail.image
+                      : "https://picsum.photos/id/1008/300/300"
+                  }
                   width={"100%"}
                   height={"100%"}
                   alt="..."
@@ -336,7 +349,11 @@ export default function RoomDetailMobile(props) {
               </div>
               <div className="col-6">
                 <img
-                  src={detail.image}
+                  src={
+                    detail.image
+                      ? detail.image
+                      : "https://picsum.photos/id/1008/300/300"
+                  }
                   width={"100%"}
                   height={"100%"}
                   alt="..."
@@ -346,7 +363,11 @@ export default function RoomDetailMobile(props) {
             <div className="row">
               <div className="col-6">
                 <img
-                  src={detail.image}
+                  src={
+                    detail.image
+                      ? detail.image
+                      : "https://picsum.photos/id/1008/300/300"
+                  }
                   width={"100%"}
                   height={"100%"}
                   alt="..."
@@ -354,7 +375,11 @@ export default function RoomDetailMobile(props) {
               </div>
               <div className="col-6">
                 <img
-                  src={detail.image}
+                  src={
+                    detail.image
+                      ? detail.image
+                      : "https://picsum.photos/id/1008/300/300"
+                  }
                   width={"100%"}
                   height={"100%"}
                   alt="..."

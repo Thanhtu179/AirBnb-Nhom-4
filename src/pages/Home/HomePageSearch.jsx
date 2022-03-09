@@ -471,6 +471,7 @@ export default function HomePageSearch(props) {
           size="large"
           onClick={searchListRoom}
           icon={<SearchOutlined />}
+          style={{ marginRight: "-10px" }}
         />
       </button>
     </div>
