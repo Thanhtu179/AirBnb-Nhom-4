@@ -68,7 +68,7 @@ const HomePage = (props) => {
           width: "100%",
           zIndex: 1,
           top: "0",
-          height: "180px",
+          height: "195px",
           backgroundColor: "white",
         }}
       >
@@ -83,7 +83,7 @@ const HomePage = (props) => {
     );
   };
   return (
-    <div style={{ marginTop: "100px" }}>
+    <div style={{ marginTop: "75px" }}>
       {clickSearchScroll ? clickSearch() : notClickSearch()}
       <HomeCarousel />
       <HomeBody />

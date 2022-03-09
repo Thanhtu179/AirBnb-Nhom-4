@@ -1,9 +1,9 @@
 #header {
-  padding: 10px 0px;
+  padding: 10px 30px;
 }
 .menu_list {
   position: fixed;
-  top: 35px;
+  top: 55px;
   z-index: 10;
   left: 50%;
   transform: translateX(-50%);
@@ -111,11 +111,11 @@
   border-radius: 50px;
   background-color: white;
   position: fixed;
-  width: 300px;
+  width: 200px;
   align-content: center;
   align-items: center;
   margin: auto;
-  top: -30px;
+  top: -38px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;

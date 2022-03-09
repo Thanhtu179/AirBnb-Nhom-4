@@ -199,7 +199,7 @@ const UserInfoMobile = (props) => {
           <div>Họ và tên: {profile.name}</div>
           <div>Email: {profile.email}</div>
           <div>Phone: {profile.phone}</div>
-          <div>Ngày sinh: {profile.birthday.split("T").at(0)}</div>
+          <div>Ngày sinh: {profile.birthday?.split("T").at(0)}</div>
           <div>Giới tính: {profile.gender ? "Nam" : "Nữ"}</div>
           <div>Địa chỉ: {profile.address}</div>
           <Button

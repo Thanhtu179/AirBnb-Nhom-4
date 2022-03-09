@@ -89,7 +89,7 @@ export default function HomeBody() {
           return (
             <div className="col-xl-3 col-md-4 col-6" key={index}>
               <img src={loc.hinhAnh} alt="..." />
-              <h6>{loc.moTa}</h6>
+              <h6 style={{ marginTop: "10px" }}>{loc.moTa}</h6>
             </div>
           );
         })}

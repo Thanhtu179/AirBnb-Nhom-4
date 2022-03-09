@@ -37,25 +37,24 @@ const HomeMobile = (props) => {
       <div style={{ position: "fixed", width: "100%", zIndex: 1, top: "0" }}>
         {scroll ? (
           <div>
-            <Header bkColor="white" color="black" />
+            <Header bkColor="white" color="black" mobile={true} />
             <HomePageSearchMobile
               props={props}
               menu={false}
               color="white"
               id="home_search_scroll"
-              marginTop="10px"
+              marginTop="50px"
             />
           </div>
         ) : (
           <div>
-            <Header bkColor="black" color="white" />
+            <Header bkColor="black" color="white" mobile={true} />
             <HomePageSearchMobile
               props={props}
-              // menu={true}
               menu={false}
               color="white"
               id="home_search"
-              marginTop="10px"
+              marginTop="-20px"
             />
           </div>
         )}
@@ -71,24 +70,23 @@ const HomeMobile = (props) => {
           width: "100%",
           zIndex: 1,
           top: "0",
-          height: "180px",
+          height: "165px",
           backgroundColor: "white",
         }}
       >
-        <Header bkColor="white" color="black" />
+        <Header bkColor="white" color="black" mobile={true} />
         <HomePageSearchMobile
           props={props}
-          // menu={true}
           color="black"
           id="home_search"
-          marginTop="10px"
+          marginTop="-28px"
         />
       </div>
     );
   };
 
   return (
-    <div style={{ marginTop: "100px" }}>
+    <div style={{ marginTop: "75px" }}>
       {clickSearchScroll ? clickSearch() : notClickSearch()}
       <HomeCarousel />
       <HomeBody />

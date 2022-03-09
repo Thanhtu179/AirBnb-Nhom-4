@@ -344,28 +344,6 @@ export default function HomePageSearchMobile(props) {
             </Dropdown>
           </div>
 
-          {/* <div className="col-6" style={{ borderRight: "1px solid black" }}>
-            <label>Nhận phòng</label>
-            <DatePicker
-              value={searchRoom.checkin}
-              onChange={onChangeCheckin}
-              bordered={false}
-              className="p-0"
-              placeholder="Thêm ngày"
-            />
-          </div>
-
-          <div className="col-6" style={{ borderRight: "1px solid black" }}>
-            <label>Trả phòng</label>
-            <DatePicker
-              value={searchRoom.checkout}
-              onChange={onChangeCheckout}
-              bordered={false}
-              className="p-0"
-              placeholder="Thêm ngày"
-            />
-          </div> */}
-
           <div className="col-6" style={{ position: "relative" }}>
             <div>
               <Dropdown overlay={menuGuest} trigger={["click"]}>
@@ -452,7 +430,7 @@ export default function HomePageSearchMobile(props) {
         style={{
           marginTop: marginTop,
           width: "170px",
-          transform: "translateX(-37%)",
+          transform: "translateX(-50%)",
         }}
         onClick={() => {
           clickHomeSearchScroll();
@@ -465,6 +443,7 @@ export default function HomePageSearchMobile(props) {
           size="large"
           onClick={searchListRoom}
           icon={<SearchOutlined />}
+          style={{ marginRight: "0px" }}
         />
       </button>
     </div>
